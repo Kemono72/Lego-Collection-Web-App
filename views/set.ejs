@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cupcake">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= set.name %> - Lego Collection</title>
+  <link href="/css/main.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-base-100 text-base-content">
+
+  <!-- Navbar -->
+  <%- include('partials/navbar', { page: '' }) %>
+
+  <!-- Main Content -->
+  <div class="container mx-auto p-4">
+    
+    <!-- Set Details -->
+    <div class="hero bg-base-200 rounded-lg p-6 mb-6">
+      <div class="hero-content text-center">
+        <div class="max-w-md">
+          <h1 class="text-5xl font-bold"><%= set.name %></h1>
+          <p class="py-4">Below, you will find detailed information about this Lego set.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center">
+      <img src="<%= set.img_url %>" alt="<%= set.name %>" class="w-64 h-64 mb-4">
+      <p><strong>Theme:</strong> <%= set.theme %></p>
+      <p><strong>Year Released:</strong> <%= set.year %></p>
+      <p><strong>Number of Parts:</strong> <%= set.num_parts %></p>
+    </div>
+
+    <!-- Random Quote Section -->
+    <div class="mt-6 p-4 bg-base-100 rounded-lg shadow-md">
+      <h2 class="text-2xl font-bold">Inspiration Quote</h2>
+      <p id="quote" class="mt-4 italic">Fetching a random quote...</p>
+    </div>
+
+    <!-- Back Button -->
+    <div class="mt-4">
+      <a href="#" onclick="history.back(); return false;" class="btn btn-secondary">Back</a>
+    </div>
+  </div>
+
+  <!-- Fetch Random Quote -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("https://quotable.io/random")
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById("quote").innerText = `"${data.content}" - ${data.author}`;
+        })
+        .catch(error => {
+          document.getElementById("quote").innerText = "Could not load a quote at this time.";
+          console.error("Error fetching quote:", error);
+        });
+    });
+  </script>
+
+</body>
+</html>

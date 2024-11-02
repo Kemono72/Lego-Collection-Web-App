@@ -1,0 +1,19 @@
+<nav class="navbar bg-base-200 p-4 shadow-md">
+  <div class="container mx-auto flex justify-between items-center">
+    <!-- Logo or Brand Name -->
+    <a href="/" class="text-xl font-bold">Lego Collection</a>
+
+    <!-- Navigation Links -->
+    <ul class="flex space-x-4">
+      <li>
+        <a href="/" class="<%= page === '/' ? 'font-bold text-primary' : '' %>">Home</a>
+      </li>
+      <li>
+        <a href="/about" class="<%= page === '/about' ? 'font-bold text-primary' : '' %>">About</a>
+      </li>
+      <li>
+        <a href="/lego/sets" class="<%= page === '/lego/sets' ? 'font-bold text-primary' : '' %>">View Collection</a>
+      </li>
+    </ul>
+  </div>
+</nav>
