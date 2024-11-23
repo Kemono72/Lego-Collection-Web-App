@@ -27,37 +27,22 @@
 
     <div class="flex flex-col items-center">
       <img src="<%= set.img_url %>" alt="<%= set.name %>" class="w-64 h-64 mb-4">
-      <p><strong>Theme:</strong> <%= set.theme %></p>
+      <p><strong>Theme:</strong> <%= set.Theme.name %></p>
       <p><strong>Year Released:</strong> <%= set.year %></p>
       <p><strong>Number of Parts:</strong> <%= set.num_parts %></p>
     </div>
 
-    <!-- Random Quote Section -->
-    <div class="mt-6 p-4 bg-base-100 rounded-lg shadow-md">
-      <h2 class="text-2xl font-bold">Inspiration Quote</h2>
-      <p id="quote" class="mt-4 italic">Fetching a random quote...</p>
+    <!-- Actions -->
+    <div class="mt-6 flex justify-center space-x-4">
+      <a href="/lego/editSet/<%= set.set_num %>" class="btn btn-secondary">Edit</a>
+      <a href="/lego/deleteSet/<%= set.set_num %>" class="btn btn-error">Delete</a>
     </div>
 
     <!-- Back Button -->
-    <div class="mt-4">
-      <a href="#" onclick="history.back(); return false;" class="btn btn-secondary">Back</a>
+    <div class="mt-4 text-center">
+      <a href="#" onclick="history.back(); return false;" class="btn btn-primary">Back</a>
     </div>
   </div>
-
-  <!-- Fetch Random Quote -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      fetch("https://quotable.io/random")
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById("quote").innerText = `"${data.content}" - ${data.author}`;
-        })
-        .catch(error => {
-          document.getElementById("quote").innerText = "Could not load a quote at this time.";
-          console.error("Error fetching quote:", error);
-        });
-    });
-  </script>
 
 </body>
 </html>

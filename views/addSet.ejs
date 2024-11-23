@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cupcake">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add to Collection - Lego</title>
+  <link href="/css/main.css" rel="stylesheet">
+</head>
+<body class="bg-base-100 text-base-content">
+
+  <!-- Navbar -->
+  <%- include('partials/navbar', { page: '/lego/addSet' }) %>
+
+  <!-- Hero Section -->
+  <div class="hero bg-primary text-primary-content py-12">
+    <div class="hero-content text-center">
+      <div class="max-w-md">
+        <h1 class="text-5xl font-bold">Add to Collection</h1>
+        <p class="py-4">Add a new Lego set to your collection with the details below.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Section -->
+  <div class="container mx-auto p-6">
+    <div class="card bg-base-200 shadow-lg p-6">
+      <form action="/lego/addSet" method="POST" class="space-y-4">
+        <div>
+          <label for="name" class="label">
+            <span class="label-text">Name</span>
+          </label>
+          <input type="text" id="name" name="name" required class="input input-bordered w-full">
+        </div>
+
+        <div>
+          <label for="year" class="label">
+            <span class="label-text">Year</span>
+          </label>
+          <input type="number" id="year" name="year" required class="input input-bordered w-full">
+        </div>
+
+        <div>
+          <label for="num_parts" class="label">
+            <span class="label-text">Number of Parts</span>
+          </label>
+          <input type="number" id="num_parts" name="num_parts" required class="input input-bordered w-full">
+        </div>
+
+        <div>
+          <label for="img_url" class="label">
+            <span class="label-text">Image URL</span>
+          </label>
+          <input type="url" id="img_url" name="img_url" required class="input input-bordered w-full">
+        </div>
+
+        <div>
+          <label for="theme_id" class="label">
+            <span class="label-text">Theme</span>
+          </label>
+          <select id="theme_id" name="theme_id" required class="select select-bordered w-full">
+            <% themes.forEach(theme => { %>
+              <option value="<%= theme.id %>"><%= theme.name %></option>
+            <% }) %>
+          </select>
+        </div>
+
+        <div>
+          <label for="set_num" class="label">
+            <span class="label-text">Set Number</span>
+          </label>
+          <input type="text" id="set_num" name="set_num" required class="input input-bordered w-full">
+        </div>
+
+        <div class="flex justify-end">
+          <button type="submit" class="btn btn-primary">Add Set</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

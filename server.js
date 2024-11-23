@@ -1,3 +1,4 @@
+
 /********************************************************************************
 *  WEB322 – Assignment 04
 * 
@@ -11,14 +12,19 @@
 ********************************************************************************/
 
 const express = require('express');
-const legoData = require('./modules/legoSets'); // Assuming legoSets module provides data functions
+const bodyParser = require('body-parser');
+const legoData = require('./modules/legoSets'); // LegoSets module provides data functions
+
 const app = express();
 const HTTP_PORT = process.env.PORT || 8080;
 
+// Middleware
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({ extended: true }));
 
+// Initialize Lego Data
 legoData.initialize()
     .then(() => {
         app.listen(HTTP_PORT, () => {
@@ -29,6 +35,8 @@ legoData.initialize()
         console.error("Failed to initialize Lego data:", err);
     });
 
+// Routes
+
 // Home Route
 app.get('/', (req, res) => {
     legoData.getAllSets()
@@ -36,7 +44,7 @@ app.get('/', (req, res) => {
             res.render('home', { legoSets });
         })
         .catch(err => {
-            res.status(500).send("Error loading Lego sets.");
+            res.status(500).render('500', { message: "Error loading Lego sets." });
         });
 });
 
@@ -52,7 +60,7 @@ app.get('/lego/sets', (req, res) => {
             res.render('sets', { sets: data });
         })
         .catch(err => {
-            res.status(500).send("Error loading Lego sets.");
+            res.status(500).render('500', { message: "Error loading Lego sets." });
         });
 });
 
@@ -70,6 +78,57 @@ app.get('/lego/sets/:set_num', (req, res) => {
         .catch(err => {
             res.status(404).render('404', { message: "Error loading set details." });
         });
+});
+
+// GET /lego/addSet
+app.get('/lego/addSet', async (req, res) => {
+    try {
+        const themes = await legoData.getAllThemes();
+        res.render('addSet', { themes });
+    } catch (err) {
+        res.render('500', { message: `Error loading themes: ${err.message}` });
+    }
+});
+
+// POST /lego/addSet
+app.post('/lego/addSet', async (req, res) => {
+    try {
+        await legoData.addSet(req.body);
+        res.redirect('/lego/sets');
+    } catch (err) {
+        res.render('500', { message: `Error adding set: ${err.message}` });
+    }
+});
+
+// GET /lego/editSet/:num
+app.get('/lego/editSet/:num', async (req, res) => {
+    try {
+        const set = await legoData.getSetByNum(req.params.num);
+        const themes = await legoData.getAllThemes();
+        res.render('editSet', { set, themes });
+    } catch (err) {
+        res.status(404).render('404', { message: err.message });
+    }
+});
+
+// POST /lego/editSet
+app.post('/lego/editSet', async (req, res) => {
+    try {
+        await legoData.editSet(req.body.set_num, req.body);
+        res.redirect('/lego/sets');
+    } catch (err) {
+        res.render('500', { message: `Error editing set: ${err.message}` });
+    }
+});
+
+// GET /lego/deleteSet/:num
+app.get('/lego/deleteSet/:num', async (req, res) => {
+    try {
+        await legoData.deleteSet(req.params.num);
+        res.redirect('/lego/sets');
+    } catch (err) {
+        res.render('500', { message: `Error deleting set: ${err.message}` });
+    }
 });
 
 // 404 Route for unmatched paths
