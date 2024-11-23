@@ -12,6 +12,7 @@
 const fs = require('fs');
 const Sequelize = require("sequelize");
 require('dotenv').config();
+require('pg');
 
 // Validate required environment variables
 const { DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE } = process.env;
