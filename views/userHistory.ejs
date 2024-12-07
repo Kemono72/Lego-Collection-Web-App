@@ -1,38 +1,40 @@
-<div class="min-h-screen bg-gray-100 flex items-center justify-center">
-    <div class="w-full max-w-4xl bg-white rounded-lg shadow-md p-6">
-      <h1 class="text-2xl font-bold text-center mb-6">User History</h1>
-      <div class="mb-6">
-        <p class="text-lg font-medium">Welcome, <span class="text-primary"><%= user.userName %></span>!</p>
-        <p class="text-gray-700">Email: <span class="font-medium"><%= user.email %></span></p>
-      </div>
-  
-      <h2 class="text-xl font-bold mb-4">Login History</h2>
-      <% if (user.loginHistory.length > 0) { %>
-        <table class="w-full border-collapse border border-gray-300">
-          <thead>
-            <tr class="bg-gray-100">
-              <th class="border border-gray-300 px-4 py-2 text-left">Date/Time</th>
-              <th class="border border-gray-300 px-4 py-2 text-left">Client Information</th>
+<div class="min-h-screen bg-gray-50 flex items-center justify-center">
+  <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-4xl">
+    <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">User History</h1>
+    <div class="mb-6">
+      <p class="text-lg font-medium">Welcome, <span class="text-primary"><%= user.userName %></span>!</p>
+      <p class="text-gray-600">Email: <span class="font-medium"><%= user.email %></span></p>
+    </div>
+
+    <h2 class="text-xl font-bold mb-4">Login History</h2>
+    <% if (user.loginHistory.length > 0) { %>
+      <table class="w-full border border-gray-300 rounded-lg">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="border px-4 py-2 text-left">Date/Time</th>
+            <th class="border px-4 py-2 text-left">Client Information</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% user.loginHistory.forEach(history => { %>
+            <tr class="hover:bg-gray-50">
+              <td class="border px-4 py-2"><%= history.dateTime %></td>
+              <td class="border px-4 py-2"><%= history.userAgent %></td>
             </tr>
-          </thead>
-          <tbody>
-            <% user.loginHistory.forEach(history => { %>
-              <tr class="hover:bg-gray-50">
-                <td class="border border-gray-300 px-4 py-2"><%= history.dateTime %></td>
-                <td class="border border-gray-300 px-4 py-2"><%= history.userAgent %></td>
-              </tr>
-            <% }) %>
-          </tbody>
-        </table>
-      <% } else { %>
-        <p class="text-gray-600">No login history available.</p>
-      <% } %>
-  
-      <div class="mt-6 flex justify-center">
-        <a href="/logout" class="bg-primary text-white py-2 px-4 rounded-md hover:bg-primary-dark">
-          Logout
-        </a>
-      </div>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <p class="text-gray-600">No login history available.</p>
+    <% } %>
+
+    <div class="mt-6 flex justify-center">
+      <a
+        href="/logout"
+        class="bg-primary text-white font-medium py-2 px-4 rounded-lg hover:bg-primary-dark transition"
+      >
+        Logout
+      </a>
     </div>
   </div>
-  
+</div>
