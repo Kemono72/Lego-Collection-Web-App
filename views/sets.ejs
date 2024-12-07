@@ -40,9 +40,14 @@
               <td class="p-4"><%= set.year %></td>
               <td class="p-4"><%= set.num_parts %></td>
               <td class="p-4 flex space-x-2">
+                <!-- Always Show View Details -->
                 <a href="/lego/sets/<%= set.set_num %>" class="btn btn-primary btn-sm">View Details</a>
-                <a href="/lego/editSet/<%= set.set_num %>" class="btn btn-secondary btn-sm">Edit</a>
-                <a href="/lego/deleteSet/<%= set.set_num %>" class="btn btn-error btn-sm">Delete</a>
+
+                <!-- Show Edit and Delete Only If Logged In -->
+                <% if (session.user) { %>
+                  <a href="/lego/editSet/<%= set.set_num %>" class="btn btn-secondary btn-sm">Edit</a>
+                  <a href="/lego/deleteSet/<%= set.set_num %>" class="btn btn-error btn-sm">Delete</a>
+                <% } %>
               </td>
             </tr>
           <% }) %>
