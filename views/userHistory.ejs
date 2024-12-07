@@ -1,32 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>User History</title>
-    <link rel="stylesheet" href="/styles.css">
-</head>
-<body>
-    <h1>Welcome, <%= user.userName %>!</h1>
-    <p>Email: <%= user.email %></p>
-
-    <h2>Login History</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Date/Time</th>
-                <th>Client Information</th>
+<div class="min-h-screen bg-gray-100 flex items-center justify-center">
+    <div class="w-full max-w-4xl bg-white rounded-lg shadow-md p-6">
+      <h1 class="text-2xl font-bold text-center mb-6">User History</h1>
+      <div class="mb-6">
+        <p class="text-lg font-medium">Welcome, <span class="text-primary"><%= user.userName %></span>!</p>
+        <p class="text-gray-700">Email: <span class="font-medium"><%= user.email %></span></p>
+      </div>
+  
+      <h2 class="text-xl font-bold mb-4">Login History</h2>
+      <% if (user.loginHistory.length > 0) { %>
+        <table class="w-full border-collapse border border-gray-300">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border border-gray-300 px-4 py-2 text-left">Date/Time</th>
+              <th class="border border-gray-300 px-4 py-2 text-left">Client Information</th>
             </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
             <% user.loginHistory.forEach(history => { %>
-                <tr>
-                    <td><%= history.dateTime %></td>
-                    <td><%= history.userAgent %></td>
-                </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="border border-gray-300 px-4 py-2"><%= history.dateTime %></td>
+                <td class="border border-gray-300 px-4 py-2"><%= history.userAgent %></td>
+              </tr>
             <% }) %>
-        </tbody>
-    </table>
-
-    <a href="/logout" class="btn">Logout</a>
-</body>
-</html>
+          </tbody>
+        </table>
+      <% } else { %>
+        <p class="text-gray-600">No login history available.</p>
+      <% } %>
+  
+      <div class="mt-6 flex justify-center">
+        <a href="/logout" class="bg-primary text-white py-2 px-4 rounded-md hover:bg-primary-dark">
+          Logout
+        </a>
+      </div>
+    </div>
+  </div>
+  

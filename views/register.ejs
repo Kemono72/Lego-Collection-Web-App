@@ -1,43 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Register</title>
-    <link rel="stylesheet" href="/styles.css">
-</head>
-<body>
-    <h1>Register</h1>
-    <form action="/register" method="POST">
-        <div>
-            <label for="userName">Username</label>
-            <input type="text" id="userName" name="userName" placeholder="Choose a username" value="<%= userName || '' %>" required>
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6">
+      <h1 class="text-2xl font-bold text-center mb-6">Register</h1>
+      <% if (errorMessage) { %>
+        <div class="alert alert-error mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span><%= errorMessage %></span>
         </div>
-        <div>
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Enter a password" required>
+      <% } %>
+      <% if (successMessage) { %>
+        <div class="alert alert-success mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span><%= successMessage %></span>
         </div>
-        <div>
-            <label for="password2">Confirm Password</label>
-            <input type="password" id="password2" name="password2" placeholder="Confirm your password" required>
-        </div>
-        <div>
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
-        </div>
-        <button type="submit">Register</button>
-    </form>
-
-    <% if (errorMessage) { %>
-        <div class="alert alert-error">
-            <p><%= errorMessage %></p>
-        </div>
-    <% } %>
-
-    <% if (successMessage) { %>
-        <div class="alert alert-success">
-            <p><%= successMessage %></p>
-            <a href="/login" class="btn">Proceed to Login</a>
-        </div>
-    <% } %>
-</body>
-</html>
+        <a href="/login" class="block bg-primary text-white text-center py-2 px-4 rounded-md hover:bg-primary-dark">Go to Login</a>
+      <% } else { %>
+        <form action="/register" method="POST" class="space-y-4">
+          <div>
+            <label for="userName" class="block text-sm font-medium text-gray-700">User Name</label>
+            <input
+              type="text"
+              name="userName"
+              id="userName"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-primary"
+              placeholder="Enter your username"
+              required
+            />
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-primary"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          <div>
+            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-primary"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <div>
+            <label for="password2" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+            <input
+              type="password"
+              name="password2"
+              id="password2"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-primary"
+              placeholder="Confirm your password"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            class="w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-primary-dark"
+          >
+            Register
+          </button>
+        </form>
+      <% } %>
+    </div>
+  </div>
+  
