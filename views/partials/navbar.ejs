@@ -14,9 +14,41 @@
       <li>
         <a href="/lego/sets" class="<%= page === '/lego/sets' ? 'font-bold text-primary' : '' %>">View Collection</a>
       </li>
-      <li>
-        <a href="/lego/addSet" class="<%= page === '/lego/addSet' ? 'font-bold text-primary' : '' %>">Add to Collection</a>
-      </li>
+
+      <!-- Conditional Rendering for Authenticated Users -->
+      <% if (session.user) { %>
+        <li>
+          <a href="/lego/addSet" class="<%= page === '/lego/addSet' ? 'font-bold text-primary' : '' %>">Add to Collection</a>
+        </li>
+        <li>
+          <details class="dropdown">
+            <summary class="cursor-pointer">Account: <%= session.user.userName %></summary>
+            <ul class="p-2 dropdown-content bg-base-100 shadow-md">
+              <li>
+                <a href="/userHistory" class="<%= page === '/userHistory' ? 'font-bold text-primary' : '' %>">User History</a>
+              </li>
+              <li>
+                <a href="/logout" class="text-error">Logout</a>
+              </li>
+            </ul>
+          </details>
+        </li>
+      <% } else { %>
+        <!-- Conditional Rendering for Unauthenticated Users -->
+        <li>
+          <details class="dropdown">
+            <summary class="cursor-pointer">Account</summary>
+            <ul class="p-2 dropdown-content bg-base-100 shadow-md">
+              <li>
+                <a href="/login" class="<%= page === '/login' ? 'font-bold text-primary' : '' %>">Login</a>
+              </li>
+              <li>
+                <a href="/register" class="<%= page === '/register' ? 'font-bold text-primary' : '' %>">Register</a>
+              </li>
+            </ul>
+          </details>
+        </li>
+      <% } %>
     </ul>
   </div>
 </nav>

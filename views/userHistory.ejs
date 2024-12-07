@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User History</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Welcome, <%= user.userName %>!</h1>
+    <p>Email: <%= user.email %></p>
+
+    <h2>Login History</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Date/Time</th>
+                <th>Client Information</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% user.loginHistory.forEach(history => { %>
+                <tr>
+                    <td><%= history.dateTime %></td>
+                    <td><%= history.userAgent %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+    <a href="/logout" class="btn">Logout</a>
+</body>
+</html>
