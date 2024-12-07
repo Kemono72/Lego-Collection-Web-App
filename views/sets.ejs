@@ -44,7 +44,7 @@
                 <a href="/lego/sets/<%= set.set_num %>" class="btn btn-primary btn-sm">View Details</a>
 
                 <!-- Show Edit and Delete Only If Logged In -->
-                <% if (session.user) { %>
+                <% if (session && session.user) { %>
                   <a href="/lego/editSet/<%= set.set_num %>" class="btn btn-secondary btn-sm">Edit</a>
                   <a href="/lego/deleteSet/<%= set.set_num %>" class="btn btn-error btn-sm">Delete</a>
                 <% } %>

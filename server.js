@@ -7,7 +7,6 @@
 *  https://www.senecacollege.ca/about/policies/academic-integrity-policy.html
 * 
 *  Name: Kemono Onomek ID: 146433230 Date: Dec 6, 2024
-*
 ********************************************************************************/
 
 const express = require('express');
@@ -61,8 +60,6 @@ legoData.initialize()
     });
 
 // Routes
-
-// Home Route
 app.get('/', (req, res) => {
     legoData.getAllSets()
         .then(legoSets => {
@@ -73,12 +70,10 @@ app.get('/', (req, res) => {
         });
 });
 
-// About Page Route
 app.get('/about', (req, res) => {
     res.render('about', { page: '/about' });
 });
 
-// Login Routes
 app.get('/login', (req, res) => {
     res.render('login', { errorMessage: null, page: '/login' });
 });
@@ -92,6 +87,7 @@ app.post('/login', (req, res) => {
                 email: user.email,
                 loginHistory: user.loginHistory
             };
+            console.log("Session User:", req.session.user); // Debug log
             res.redirect('/lego/sets');
         })
         .catch(err => {
@@ -99,13 +95,11 @@ app.post('/login', (req, res) => {
         });
 });
 
-// Logout Route
 app.get('/logout', (req, res) => {
     req.session.reset();
     res.redirect('/');
 });
 
-// Register Routes
 app.get('/register', (req, res) => {
     res.render('register', { errorMessage: null, successMessage: null, page: '/register' });
 });
@@ -120,23 +114,20 @@ app.post('/register', (req, res) => {
         });
 });
 
-// User History Route
 app.get('/userHistory', ensureLogin, (req, res) => {
     res.render('userHistory', { user: req.session.user, page: '/userHistory' });
 });
 
-// Lego Sets Collection Route
 app.get('/lego/sets', (req, res) => {
     legoData.getAllSets()
         .then(data => {
-            res.render('sets', { sets: data, page: '/lego/sets' });
+            res.render('sets', { sets: data, session: req.session, page: '/lego/sets' });
         })
         .catch(err => {
             res.status(500).render('500', { message: "Error loading Lego sets." });
         });
 });
 
-// Individual Lego Set Route
 app.get('/lego/sets/:set_num', (req, res) => {
     const setNum = req.params.set_num;
     legoData.getSetByNum(setNum)
@@ -152,7 +143,6 @@ app.get('/lego/sets/:set_num', (req, res) => {
         });
 });
 
-// Add Set Route
 app.get('/lego/addSet', ensureLogin, async (req, res) => {
     try {
         const themes = await legoData.getAllThemes();
@@ -171,7 +161,6 @@ app.post('/lego/addSet', ensureLogin, async (req, res) => {
     }
 });
 
-// Edit Set Route
 app.get('/lego/editSet/:num', ensureLogin, async (req, res) => {
     try {
         const set = await legoData.getSetByNum(req.params.num);
@@ -191,7 +180,6 @@ app.post('/lego/editSet', ensureLogin, async (req, res) => {
     }
 });
 
-// Delete Set Route
 app.get('/lego/deleteSet/:num', ensureLogin, async (req, res) => {
     try {
         await legoData.deleteSet(req.params.num);
@@ -201,7 +189,6 @@ app.get('/lego/deleteSet/:num', ensureLogin, async (req, res) => {
     }
 });
 
-// 404 Route
 app.use((req, res) => {
     res.status(404).render('404', { message: "Page not found" });
 });
