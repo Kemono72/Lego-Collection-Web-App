@@ -1,5 +1,5 @@
-<div class="min-h-screen bg-gray-50 flex items-center justify-center">
-  <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div class="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
     <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Register</h1>
 
     <% if (errorMessage) { %>
@@ -19,7 +19,7 @@
         Go to Login
       </a>
     <% } else { %>
-      <form action="/register" method="POST" class="space-y-4">
+      <form action="/register" method="POST" class="space-y-6">
         <div>
           <label for="userName" class="block text-sm font-medium text-gray-700">User Name</label>
           <input
@@ -27,7 +27,7 @@
             name="userName"
             id="userName"
             placeholder="Enter your username"
-            class="w-full border border-gray-300 rounded-lg px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-primary"
+            class="w-full border border-gray-300 rounded-lg px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
             required
           />
         </div>
@@ -38,7 +38,7 @@
             name="email"
             id="email"
             placeholder="Enter your email"
-            class="w-full border border-gray-300 rounded-lg px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-primary"
+            class="w-full border border-gray-300 rounded-lg px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
             required
           />
         </div>
@@ -49,28 +49,9 @@
             name="password"
             id="password"
             placeholder="Enter your password"
-            class="w-full border border-gray-300 rounded-lg px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-primary"
+            class="w-full border border-gray-300 rounded-lg px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
             required
           />
         </div>
         <div>
-          <label for="password2" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-          <input
-            type="password"
-            name="password2"
-            id="password2"
-            placeholder="Confirm your password"
-            class="w-full border border-gray-300 rounded-lg px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-primary"
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          class="w-full bg-primary text-white font-medium py-2 rounded-lg hover:bg-primary-dark transition"
-        >
-          Register
-        </button>
-      </form>
-    <% } %>
-  </div>
-</div>
+          <label for="password2" class="block text-sm font-medium text-gray-700">Conf
