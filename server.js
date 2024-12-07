@@ -41,10 +41,9 @@ app.use((req, res, next) => {
 // Middleware to ensure the user is logged in
 function ensureLogin(req, res, next) {
     if (!req.session.user) {
-        res.redirect('/login');
-    } else {
-        next();
+        return res.redirect('/login');
     }
+    next();
 }
 
 // Initialize Lego Data and Auth Service
@@ -87,7 +86,7 @@ app.post('/login', (req, res) => {
                 email: user.email,
                 loginHistory: user.loginHistory
             };
-            console.log("Session User:", req.session.user); // Debug log
+            console.log("Session User Set:", req.session.user);
             res.redirect('/lego/sets');
         })
         .catch(err => {
@@ -119,6 +118,7 @@ app.get('/userHistory', ensureLogin, (req, res) => {
 });
 
 app.get('/lego/sets', (req, res) => {
+    console.log("Session Data:", req.session); // Debug log
     legoData.getAllSets()
         .then(data => {
             res.render('sets', { sets: data, session: req.session, page: '/lego/sets' });
