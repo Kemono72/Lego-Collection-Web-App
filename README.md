@@ -48,3 +48,33 @@ An interactive and responsive website for LEGO® enthusiasts to browse, manage, 
 
 ## 📂 Project Structure
 
+lego-collection-app/
+├── views/                 # EJS templates for dynamic web pages  
+│   ├── home.ejs           # Home page with set listings  
+│   ├── login.ejs          # Login form  
+│   ├── register.ejs       # Register form  
+│   ├── addSet.ejs         # Form to add new Lego sets  
+│   ├── editSet.ejs        # Form to edit existing sets  
+│   ├── set.ejs            # Individual set display  
+│   ├── sets.ejs           # List all sets  
+│   ├── userHistory.ejs    # Recently viewed sets  
+│   ├── about.ejs          # About page  
+│   └── 500.ejs            # Error page  
+│
+├── modules/               # Custom service modules  
+│   ├── legoSets.js        # Handles DB operations for sets  
+│   └── auth-service.js    # Authentication and session logic  
+│
+├── public/                # Static assets  
+│   ├── css/               # Tailwind CSS and custom styles  
+│   └── images/            # Public media/images  
+│
+├── media/                 # Screenshots for portfolio/README  
+│   ├── home_view.png  
+│   └── add_edit_view.png  
+│
+├── data/sets.csv          # Lego sets import/export data  
+├── .env                   # Environment variables (not committed)  
+├── server.js              # Express app entry point  
+├── package.json           # Dependencies & scripts  
+└── README.md              # You're reading it!
